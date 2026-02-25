@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"github.com/Yoshiki-programming/vokanote-backend.git/inter/controller"
-	"github.com/Yoshiki-programming/vokanote-backend.git/inter/utils/Slog"
 	"google.golang.org/api/option"
 	"net/http"
 	"os"
@@ -71,12 +70,10 @@ func DeleteUserHandler(w http.ResponseWriter, r *http.Request) {
 	// これにより、二度と同じトークンでログインできなくなります
 	if err := authClient.DeleteUser(ctx, uid); err != nil {
 		// Firestore 削除後なので、ここでのエラーはログに留めるか、慎重に扱う
-		Slog.Error(fmt.Errorf("failed to delete auth user: %v", err))
+		fmt.Errorf("failed to delete auth user: %v", err)
 		responses.SendErrorResponse(w, http.StatusInternalServerError, err)
 		return
 	}
-
-	Slog.DebugInfo("COMPLETED", "User account and all data fully purged for UID: "+uid)
 
 	// 5. 成功レスポンスを送信
 	responses.SendResponse(w, statusCode, body)
