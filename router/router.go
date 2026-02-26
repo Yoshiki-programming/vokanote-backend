@@ -1,7 +1,7 @@
 package router
 
 import (
-	"github.com/Yoshiki-programming/vokanote-backend.git/inter/handler"
+	"github.com/Yoshiki-programming/vokanote-backend/inter/handler"
 	"net/http"
 )
 

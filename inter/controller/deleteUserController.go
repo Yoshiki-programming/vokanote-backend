@@ -4,7 +4,7 @@ import (
 	"cloud.google.com/go/firestore"
 	"context"
 	"fmt"
-	"github.com/Yoshiki-programming/vokanote-backend.git/inter/models"
+	"github.com/Yoshiki-programming/vokanote-backend/inter/models"
 	"net/http"
 )
 

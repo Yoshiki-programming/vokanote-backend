@@ -2,8 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/Yoshiki-programming/vokanote-backend.git/inter/utils/Slog"
-	"github.com/Yoshiki-programming/vokanote-backend.git/router"
+	"github.com/Yoshiki-programming/vokanote-backend/router"
 	"github.com/joho/godotenv"
 	"log"
 	"net/http"
@@ -26,10 +25,7 @@ func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
-		Slog.Warn("port number is not set. default: 8080")
 	}
-
-	Slog.DebugInfo("PROJECT_ID", os.Getenv("PROJECT_ID"))
 
 	// サーバーの起動
 	if err := http.ListenAndServe(":"+port, nil); err != nil {

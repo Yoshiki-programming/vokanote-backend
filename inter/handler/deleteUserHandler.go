@@ -3,17 +3,14 @@ package handler
 import (
 	"context"
 	"fmt"
-	"github.com/Yoshiki-programming/vokanote-backend.git/inter/controller"
-	"google.golang.org/api/option"
+	"github.com/Yoshiki-programming/vokanote-backend/inter/controller"
 	"net/http"
 	"os"
 	"strings"
 
-	"github.com/Yoshiki-programming/vokanote-backend.git/inter/models"
-	"github.com/Yoshiki-programming/vokanote-backend.git/inter/responses"
+	"github.com/Yoshiki-programming/vokanote-backend/inter/models"
+	"github.com/Yoshiki-programming/vokanote-backend/inter/responses"
 )
-
-var Opt = option.WithCredentialsFile(os.Getenv("GOOGLE_APPLICATION_CREDENTIALS"))
 
 func DeleteUserHandler(w http.ResponseWriter, r *http.Request) {
 	// CORS ヘッダーの設定
@@ -25,7 +22,6 @@ func DeleteUserHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNoContent)
 		return
 	}
-
 	// POST メソッド以外を弾く
 	if r.Method != http.MethodPost {
 		responses.SendErrorResponse(w, http.StatusMethodNotAllowed, fmt.Errorf("%s method not allowed", r.Method))
@@ -35,14 +31,14 @@ func DeleteUserHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := context.Background()
 
 	// 1. 各種クライアントの初期化
-	firestoreClient, err := models.GetFirestoreClient(ctx, Opt, os.Getenv("PROJECT_ID"))
+	firestoreClient, err := models.GetFirestoreClient(ctx, os.Getenv("PROJECT_ID"))
 	if err != nil {
 		responses.SendErrorResponse(w, http.StatusInternalServerError, err)
 		return
 	}
 	defer firestoreClient.Close() // クライアントのクローズを忘れずに
 
-	authClient, err := models.GetAuthClient(ctx, Opt)
+	authClient, err := models.GetAuthClient(ctx)
 	if err != nil {
 		responses.SendErrorResponse(w, http.StatusInternalServerError, err)
 		return
