@@ -6,5 +6,6 @@ import (
 )
 
 func Router() {
-	http.HandleFunc("/deleteUser", handler.DeleteUserHandler)
+	http.HandleFunc("/delete", handler.DeleteHandler)
+	http.HandleFunc("/generateContent", handler.GenerateContentHandler)
 }
